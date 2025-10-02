@@ -20,6 +20,9 @@ export default function Home() {
                 <Link href="/n5/vocabulary" className="text-blue-500 hover:underline">
                     N5 Vocabulary
                 </Link>
+                <Link href="/n5/grammar" className="text-blue-500 hover:underline">
+                    N5 Grammar
+                </Link>
                 <Link href="/n5/kanji" className="text-blue-500 hover:underline">
                     N5 Kanji
                 </Link>

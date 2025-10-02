@@ -11,6 +11,11 @@ async function getProgress(userId:string) {
         where: {userId, vocabulary: {level: "N5"}},
     });
 
+    const totalN5Grammar = await prisma.grammar.count({where: {level: 'N5'}});
+    const completedN5Grammar = await prisma.grammarProgress.count({
+        where: {userId, grammar: {level: "N5"}},
+    });
+
     const totalN5Kanji = await prisma.kanji.count({where: {level: 'N5'}});
     const completedN5Kanji = await prisma.kanjiProgress.count({
         where: {userId, kanji: {level: "N5"}},
@@ -21,6 +26,11 @@ async function getProgress(userId:string) {
             total: totalN5Vocab,
             completed: completedN5Vocab,
             percentage: totalN5Vocab > 0 ? Math.round((completedN5Vocab / totalN5Vocab) * 100) : 0,
+        },
+        n5Grammar: {
+            total: totalN5Grammar,
+            completed: completedN5Grammar,
+            percentage: totalN5Grammar > 0 ? Math.round((completedN5Grammar / totalN5Grammar) * 100) : 0,
         },
         n5Kanji: {
             total: totalN5Kanji,
@@ -42,7 +52,7 @@ export default async function DashboardPage() {
     return(
         <div className="container p-8 mx-auto">
             <h1 className="mb-6 text-4xl font-bold">Your Dashboard</h1>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
 
                 <div className="p-6 bg-white border rounded-lg shadow">
                     <h2 className="text-2xl font-semibold">N5 Vocabulary</h2>
@@ -51,6 +61,15 @@ export default async function DashboardPage() {
                         <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progress.n5Vocab.percentage}%` }}></div>
                     </div>
                     <p className="mt-2 text-xl font-bold text-right">{progress.n5Vocab.percentage}%</p>
+                </div>
+
+                <div className="p-6 bg-white border rounded-lg shadow">
+                    <h2 className="text-2xl font-semibold">N5 Grammar</h2>
+                    <p className="mt-2 text-gray-600">{progress.n5Grammar.completed} / {progress.n5Grammar.total} items completed</p>
+                    <div className="w-full mt-4 bg-gray-200 rounded-full h-2.5">
+                        <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progress.n5Grammar.percentage}%` }}></div>
+                    </div>
+                    <p className="mt-2 text-xl font-bold text-right">{progress.n5Grammar.percentage}%</p>
                 </div>
 
                  <div className="p-6 bg-white border rounded-lg shadow">

@@ -1,56 +1,56 @@
 "use client"
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 
-type VocabularyItem = {
+type GrammarItem = {
     id: string;
-    japanese: string;
-    reading: string;
+    structure: string;
     meaning: string;
+    explanation: string;
     example: string;
-};
+}
 
 interface Props {
-    initialVocabulary: VocabularyItem[];
+    initialGrammar: GrammarItem[];
     initialProgress: Set<string>;
 }
 
-export default function VocabularyClientPage({ initialVocabulary, initialProgress }: Props) {
+export default function GrammarClientPage({ initialGrammar, initialProgress}: Props) {
     const [progress, setProgress] = useState(initialProgress);
     const router = useRouter();
 
-    const handleCheckboxChange = async (vocabId: string, isChecked: boolean) => {
+    const handleCheckboxChange = async (grammarId: string, isChecked: boolean) => {
         const newProgress = new Set(progress);
         if(isChecked) {
-            newProgress.add(vocabId);
+            newProgress.add(grammarId);
         } else {
-            newProgress.delete(vocabId);
+            newProgress.delete(grammarId);
         }
         setProgress(newProgress);
 
-        await fetch('/api/progress/vocabulary', {
+        await fetch('/api/progress/grammar', {
             method: 'POST',
-            headers: { 'Content-Type' : 'application/json'},
-            body: JSON.stringify({ vocabularyId: vocabId, completed: isChecked }),
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ grammarId: grammarId, completed: isChecked}),
         });
         router.refresh();
     };
 
-    return (
+    return(
         <div className='space-y-4'>
-            {initialVocabulary.map((item) => (
+            {initialGrammar.map((item) => (
                 <div key={item.id} className='flex items-center p-4 bg-gray-100 border rounded-lg'>
                     <input type="checkbox"
                     className='w-6 h-6 mr-4'
                     checked={progress.has(item.id)}
                     onChange={(e) => handleCheckboxChange(item.id, e.target.checked)} />
                     <div>
-                        <p className='text-xl font-semibold'> {item.japanese} ({item.reading}) </p>
-                        <p className='text-gray-600'> {item.meaning} </p>
+                        <p className='text-xl font-semibold'> {item.structure} ({item.meaning}) </p>
+                        <p className='text-gray-600'> {item.explanation} </p>
                         <p className='text-gray-600'> {item.example} </p>
                     </div>
                 </div>
             ))}
-        </div>
+        </div>  
     );
 }
