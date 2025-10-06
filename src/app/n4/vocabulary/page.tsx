@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 async function getVocabularyData(userId: string | undefined) {
     const vocabulary = await prisma.vocabulary.findMany({
-        where: {level: 'N5'},
+        where: {level: 'N4'},
     });
 
     if(!userId) {
@@ -30,7 +30,7 @@ export default async function VocabularyPage() {
 
     return (
         <div className="container bg-black p-8 mx-auto">
-            <h1 className="mb-6 text-4xl font-bold">N5 Vocabulary</h1>
+            <h1 className="mb-6 text-4xl font-bold">N4 Vocabulary</h1>
            { /*@ts-expect-error idk man */ }
             <VocabularyClientPage initialVocabulary={vocabulary} initialProgress={userProgress} />
         </div>

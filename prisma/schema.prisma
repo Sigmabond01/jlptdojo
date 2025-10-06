@@ -97,6 +97,7 @@ model Kanji {
   id          String    @id @default(cuid())
   level       JlptLevel
   character     String  @unique
+  reading       String?
   meaning      String
   onYomi       String
   kunYomi       String
