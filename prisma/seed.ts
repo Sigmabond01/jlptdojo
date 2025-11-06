@@ -58,15 +58,13 @@ async function seedKanjiForLevel(levelNumber: number, jlptLevel: JlptLevel) {
   }
 }
 
-
-
-async function seedVocabularyForLevel(levelNumber: number, jlptLevel: JlptLevel) {
-  const API_URL = `https://jlpt-vocab-api.vercel.app/api/words?level=${levelNumber}&limit=3470`;
+async function seedGrammarForLevel(levelNumber: number, jlptLevel: JlptLevel) {
+  const GRAMMAR_API_URL = `https://jlpt-grammar-api.vercel.app/api/grammar/${jlptLevel}`;
   
-  console.log(`Fetching vocabulary for JLPT N${levelNumber}`);
+  console.log(`Fetching grammar for JLPT N${levelNumber}`);
   
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(GRAMMAR_API_URL);
     if (!response.ok) {
       console.log(`API returned a non-200 status for N${levelNumber}`);
       return;
@@ -74,25 +72,73 @@ async function seedVocabularyForLevel(levelNumber: number, jlptLevel: JlptLevel)
     
     const responseData = await response.json();
     
-    const vocabArray = responseData.words;
-
-    if (!Array.isArray(vocabArray)) {
-      console.log(`No vocabulary data array found in API response for N${levelNumber}`);
-      return;
-    }
-    
-    if (vocabArray.length === 0) {
-        console.log(`No vocabulary words to seed for N${levelNumber}`);
+    if (responseData.length === 0) {
+        console.log(`No grammar words to seed for N${levelNumber}`);
         return;
     }
     
-    console.log(`Found ${vocabArray.length} N${levelNumber} words. Seeding to database`);
+    console.log(`Found ${responseData.length} N${levelNumber} words. Seeding to database`);
 
-    //The API uses 'furigana' for the reading, not 'reading'
-    const formattedVocabData = vocabArray.map((item: any) => ({
+    interface GrammarItem {
+      grammar: string;
+      romaji: string;
+      meaning: string;
+      example: string;
+    }
+    
+    const formattedGrammarData = responseData.map((item: GrammarItem) => ({
       level: jlptLevel,
-      japanese: item.word,
-      reading: item.furigana,
+      grammar: item.grammar,
+      romaji: item.romaji,
+      meaning: item.meaning,
+      example: item.example,
+    }));
+
+    await prisma.grammar.createMany({
+      data: formattedGrammarData,
+      skipDuplicates: true,
+    });
+    console.log(`N${levelNumber} grammar seeding finished`);
+
+  } catch (error) {
+    console.error(`Error seeding N${levelNumber} grammar:`, error);
+  }
+}
+
+async function seedVocabForLevel(levelNumber: number, jlptLevel: JlptLevel) {
+  const VOCAB_API_URL = `https://jlpt-grammar-api.vercel.app/api/vocabulary/${jlptLevel}`;
+  
+  console.log(`Fetching vocabulary for JLPT N${levelNumber}`);
+  
+  try {
+    const response = await fetch(VOCAB_API_URL);
+    if (!response.ok) {
+      console.log(`API returned a non-200 status for N${levelNumber}`);
+      return;
+    }
+    
+    const responseData = await response.json();
+    
+    if (responseData.length === 0) {
+        console.log(`No vocab words to seed for N${levelNumber}`);
+        return;
+    }
+    
+    console.log(`Found ${responseData.length} N${levelNumber} words. Seeding to database`);
+
+    interface VocabItem {
+      word: string;
+      romaji_reading: string;
+      pos: string;
+      meaning: string;
+      example: string;
+    }
+
+    const formattedVocabData = responseData.map((item: VocabItem) => ({
+      level: jlptLevel,
+      word: item.word,
+      romajiReading: item.romaji_reading,
+      partsOfSpeech: item.pos,
       meaning: item.meaning,
       example: item.example,
     }));
@@ -112,8 +158,12 @@ async function seedVocabularyForLevel(levelNumber: number, jlptLevel: JlptLevel)
 async function main() {
   console.log('Start seeding process.....');
 
-  await seedVocabularyForLevel(5, JlptLevel.N5);
-  await seedVocabularyForLevel(4, JlptLevel.N4);
+
+  await seedVocabForLevel(5, JlptLevel.N5);
+  await seedVocabForLevel(4, JlptLevel.N4);
+
+  await seedGrammarForLevel(5, JlptLevel.N5);
+  await seedGrammarForLevel(4, JlptLevel.N4);
 
   await seedKanjiForLevel(5, JlptLevel.N5);
   await seedKanjiForLevel(4, JlptLevel.N4);

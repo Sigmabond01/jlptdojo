@@ -1,87 +1,43 @@
-import { PrismaClient } from "@/generated/prisma"; 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation";
+import { getProgress, calculateOverallProgress } from "../../lib/getProgress";
+import LevelSection from "@/components/dashboard/Level";
+import Header from "@/components/ui/Header";
 
-const prisma = new PrismaClient();
-
-async function getProgress(userId:string) {
-    const totalN5Vocab = await prisma.vocabulary.count({where: {level: 'N5'}});
-    const completedN5Vocab = await prisma.vocabularyProgress.count({
-        where: {userId, vocabulary: {level: "N5"}},
-    });
-
-    const totalN5Grammar = await prisma.grammar.count({where: {level: 'N5'}});
-    const completedN5Grammar = await prisma.grammarProgress.count({
-        where: {userId, grammar: {level: "N5"}},
-    });
-
-    const totalN5Kanji = await prisma.kanji.count({where: {level: 'N5'}});
-    const completedN5Kanji = await prisma.kanjiProgress.count({
-        where: {userId, kanji: {level: "N5"}},
-    });
-
-    return {
-        n5Vocab: {
-            total: totalN5Vocab,
-            completed: completedN5Vocab,
-            percentage: totalN5Vocab > 0 ? Math.round((completedN5Vocab / totalN5Vocab) * 100) : 0,
-        },
-        n5Grammar: {
-            total: totalN5Grammar,
-            completed: completedN5Grammar,
-            percentage: totalN5Grammar > 0 ? Math.round((completedN5Grammar / totalN5Grammar) * 100) : 0,
-        },
-        n5Kanji: {
-            total: totalN5Kanji,
-            completed: completedN5Kanji,
-            percentage: totalN5Kanji > 0 ? Math.round((completedN5Kanji / totalN5Kanji) * 100) : 0,
-        },
-    };
-}
-
-export default async function DashboardPage() {
+export default async function Dashboard() {
     const session = await getServerSession(authOptions);
+    if(!session?.user?.id) redirect("/");
 
-    if(!session?.user?.id) {
-        redirect("/");
-    }
-    
     const progress = await getProgress(session.user.id);
 
-    return(
-        <div className="container p-8 mx-auto">
-            <h1 className="mb-6 text-4xl font-bold">Your Dashboard</h1>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+    const sections = [
+        {level: 'N5', data: progress.n5},
+        {level: 'N4', data: progress.n4},
+    ];
 
-                <div className="p-6 bg-white border rounded-lg shadow">
-                    <h2 className="text-2xl font-semibold">N5 Vocabulary</h2>
-                    <p className="mt-2 text-gray-600">{progress.n5Vocab.completed} / {progress.n5Vocab.total} items completed</p>
-                    <div className="w-full mt-4 bg-gray-200 rounded-full h-2.5">
-                        <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progress.n5Vocab.percentage}%` }}></div>
-                    </div>
-                    <p className="mt-2 text-xl font-bold text-right">{progress.n5Vocab.percentage}%</p>
-                </div>
+    return (
+        <div className="min-h-screen relative bg-gray-400  dark:bg-black text-black dark:text-white">
+            <div className="relative z-10 backdrop-blur-[1px]"></div>
+            <Header />
 
-                <div className="p-6 bg-white border rounded-lg shadow">
-                    <h2 className="text-2xl font-semibold">N5 Grammar</h2>
-                    <p className="mt-2 text-gray-600">{progress.n5Grammar.completed} / {progress.n5Grammar.total} items completed</p>
-                    <div className="w-full mt-4 bg-gray-200 rounded-full h-2.5">
-                        <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${progress.n5Grammar.percentage}%` }}></div>
-                    </div>
-                    <p className="mt-2 text-xl font-bold text-right">{progress.n5Grammar.percentage}%</p>
-                </div>
+            <div className="relative z-10 container mx-auto p-4 md:p-8">
+                <header className="mb-12 pt-8">
+                    <h1 className="text-5xl md:text-6xl font-bold mb-3 tracking-tight">Your Dashboard</h1>
 
-                 <div className="p-6 bg-white border rounded-lg shadow">
-                    <h2 className="text-2xl font-semibold">N5 Kanji</h2>
-                    <p className="mt-2 text-gray-600">{progress.n5Kanji.completed} / {progress.n5Kanji.total} items completed</p>
-                    <div className="w-full mt-4 bg-gray-200 rounded-full h-2.5">
-                        <div className="bg-green-600 h-2.5 rounded-full" style={{ width: `${progress.n5Kanji.percentage}%` }}></div>
+                    <div className="flex items-center gap-4 mb-6">
+                        <p className="text-sm uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400">Track Your Progress</p>
                     </div>
-                    <p className="mt-2 text-xl font-bold text-right">{progress.n5Kanji.percentage}%</p>
-                </div>
+
+                    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
+                        Track your journey through JLPT N5 and N4. Master vocabulary, grammar, and kanji step by step.
+                    </p>
+                </header>
+
+                {sections.map(({ level, data}) => (
+                    <LevelSection key={level} levelName={level} levelDescription="" progress={data} overallPercentage={calculateOverallProgress(data)} />
+                ))}
             </div>
         </div>
     );
-    
 }

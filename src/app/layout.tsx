@@ -1,16 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import AuthProvider from "@/components/AuthProvider";
+import AuthProvider from "@/components/auth/AuthProvider";
+import { Zen_Kaku_Gothic_New } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const zen = Zen_Kaku_Gothic_New({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -24,11 +20,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-       <AuthProvider> {children}</AuthProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={zen.className}>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('theme') || 'system';
+                  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  const finalTheme = theme === 'system' ? (systemDark ? 'dark' : 'light') : theme;
+                  document.documentElement.classList.add(finalTheme);
+                  document.documentElement.style.colorScheme = finalTheme;
+                } catch (_) {}
+              })();
+            `,
+          }}
+        />
+
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+        >
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

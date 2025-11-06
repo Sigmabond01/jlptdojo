@@ -18,9 +18,6 @@ export default function Logo() {
         <circle cx="150" cy="195" r="15" fill="#000" />
       </svg>
 
-      <span className="-mt-4 text-white font-bold text-xs md:text-sm">
-        JLPTDojo
-      </span>
     </div>
   );
 }
