@@ -11,17 +11,24 @@ import { ItemType } from "@/types/items";
 
 export const dynamic = "force-dynamic";
 
+//
+// --- FIX 1: Correct the interface ---
+// The 'params' prop is a plain object, never a Promise.
+//
 interface PageProps {
-  params: Promise<{
+  params: {
     category: string;
     level: string;
-  }>;
+  };
 }
 
 const validCategories: ItemType[] = ["vocabulary", "grammar", "kanji"];
 const validLevels: JlptLevel[] = [JlptLevel.N5, JlptLevel.N4];
 
-export default async function LearningLevelPage({ params }: { params: { category: string, level: string } }) {
+//
+// --- FIX 2: Use the correct PageProps interface ---
+//
+export default async function LearningLevelPage({ params }: PageProps) {
   const { category, level } = normalizeParams(params);
 
   if (!validCategories.includes(category)) return notFound();
