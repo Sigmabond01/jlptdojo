@@ -102,7 +102,7 @@ export function LearningLayout({
                 <DailyStreakCard streakData={streakData} />
 
                 <div className="rounded-2xl overflow-hidden bg-neutral-950">
-                <iframe data-testid="embed-iframe" className="" src="https://open.spotify.com/embed/playlist/3QB6iQu9KKxdD8Bo7jDs8A?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowFullScreen={true} allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                  <iframe data-testid="embed-iframe" className="" src="https://open.spotify.com/embed/playlist/3QB6iQu9KKxdD8Bo7jDs8A?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowFullScreen={true} allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
                 
                 <CTASection />
@@ -189,7 +189,7 @@ function CTASection() {
           href="https://github.com/jlpt-dojo"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-400 dark:text-gray-600 text-3xl dark:hover:text-white hover:transition-all duration-300"
+          className="text-gray-400 dark:text-gray-600 text-3xl transition-all duration-300 dark:hover:text-white"
         >
           CLICK HERE
         </a>
@@ -197,7 +197,7 @@ function CTASection() {
 
       <div className="p-4 backdrop-blur-xl bg-gray-200 dark:bg-black/80 text-center border-2 border-black/10 dark:border-white/10 rounded-2xl space-y-3">
         <h1 className="text-gray-600 dark:text-white">Support Us!</h1>
-        <div className="flex justify-center text-3xl text-gray-400 dark:text-gray-600 dark:hover:text-white hover:transition-all duration-300">
+        <div className="flex justify-center text-3xl text-gray-400 dark:text-gray-600 transition-all duration-300 dark:hover:text-white">
           <a href="https://buymeacoffee.com/sigmabond01" target="_blank" rel="noopener noreferrer">
             <Coffee />
           </a>

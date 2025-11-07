@@ -11,17 +11,18 @@ import { ItemType } from "@/types/items";
 export const dynamic = "force-dynamic";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     category: string;
     level: string;
-  };
+  }>;
 }
 
 const validCategories: ItemType[] = ["vocabulary", "grammar", "kanji"];
 const validLevels: JlptLevel[] = [JlptLevel.N5, JlptLevel.N4];
 
 export default async function LearningLevelPage({ params }: PageProps) {
-  const { category, level } = await normalizeParams(params);
+  const resolvedParams = await params;
+  const { category, level } = normalizeParams(resolvedParams);
 
   if (!validCategories.includes(category)) return notFound();
   if (!validLevels.includes(level)) return notFound();
