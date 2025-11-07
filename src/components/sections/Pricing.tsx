@@ -1,14 +1,6 @@
 import { useState } from "react";
 import YinYangBackground from "../ui/Background";
-import { features } from "process";
 import { ArrowRight, Check } from "lucide-react";
-
-
-const CheckIcon = () => (
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-black dark:text-white">
-<path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-</svg>
-);
 
 
 const plans = [
@@ -79,7 +71,7 @@ export default function Pricing() {
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8 scale-95">
-                    {plans.map((plan, i) => (
+                    {plans.map((plan) => (
                         <div key={plan.name}
                         className={`relative group transition-all duration-700 ${
                             plan.highlight ? 'md:-transalte-y-4' : ''

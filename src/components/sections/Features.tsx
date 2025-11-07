@@ -1,4 +1,4 @@
-import { useState } from "react";
+import Image from "next/image";
 
 const BentoGrid = ({
   className,
@@ -29,15 +29,11 @@ const BentoGridItem = ({
   header?: React.ReactNode;
   icon?: React.ReactNode;
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <div
       className={`row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-500 shadow-input dark:shadow-none p-4 
         bg-white/50 dark:bg-neutral-950 border-2 border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30
         flex flex-col space-y-4 ${className}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {header}
       <div className="group-hover/bento:translate-x-2 transition duration-500">
@@ -56,10 +52,11 @@ const BentoGridItem = ({
 // Image Component
 const ImageCard = ({ src }: { src: string }) => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl overflow-hidden group relative">
-    <img 
+    <Image 
       src={src} 
       alt="Feature" 
       className="w-full h-full object-cover transition-transform duration-500"
+      width={200} height={100}
     />
   </div>
 );

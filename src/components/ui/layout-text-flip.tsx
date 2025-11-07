@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 
 export const LayoutTextFlip = ({
-  text = "Build Amazing",
   words = ["Landing Pages", "Component Blocks", "Page Sections", "3D Shaders"],
   duration = 3000,
 }: {
@@ -20,7 +19,7 @@ export const LayoutTextFlip = ({
     }, duration);
 
     return () => clearInterval(interval);
-  }, []);
+  });
 
   return (
     <>

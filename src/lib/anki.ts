@@ -49,7 +49,8 @@ export const addCard = async (
         }
 
         return {success: false, message: 'Unknown response from AnkiCOnnect'};
-    } catch (err) {
+    } catch (error) {
+        console.error("Error occured!", error);
         return {
             success: false,
             message: 'Could not connect to Anki,. Make sure to install AnkiConnect'
