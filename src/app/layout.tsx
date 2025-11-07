@@ -9,10 +9,18 @@ const zen = Zen_Kaku_Gothic_New({
   weight: ["400"],
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "JLPTDojo",
-  description: "Your dojo for mastering JLPT.",
+  description: "Train, test, and master every JLPT level.",
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png", sizes: "any" },
+      { url: "/favicon.ico", type: "image/x-icon" },
+    ],
+    shortcut: ["/favicon.png"],
+ },
 };
+
 
 export default function RootLayout({
   children,
