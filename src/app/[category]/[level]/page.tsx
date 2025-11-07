@@ -44,5 +44,6 @@ export default async function LearningLevelPage({ params }: PageProps) {
       streakData={streakData}
       session={session}
     />
+    //nice
   );
 }
