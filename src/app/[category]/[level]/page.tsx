@@ -21,8 +21,7 @@ const validCategories: ItemType[] = ["vocabulary", "grammar", "kanji"];
 const validLevels: JlptLevel[] = [JlptLevel.N5, JlptLevel.N4];
 
 export default async function LearningLevelPage({ params }: PageProps) {
-  const resolvedParams = await params;
-  const { category, level } = await normalizeParams(resolvedParams);
+  const { category, level } = await normalizeParams(params);
 
   if (!validCategories.includes(category)) return notFound();
   if (!validLevels.includes(level)) return notFound();
