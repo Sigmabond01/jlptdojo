@@ -1,3 +1,4 @@
+// src/app/[category]/[level]/page.tsx
 import { getLearningData } from "@/lib/fetchData";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -11,18 +12,17 @@ import { ItemType } from "@/types/items";
 export const dynamic = "force-dynamic";
 
 interface PageProps {
-  params: Promise<{
+  params: {
     category: string;
     level: string;
-  }>;
+  };
 }
 
 const validCategories: ItemType[] = ["vocabulary", "grammar", "kanji"];
 const validLevels: JlptLevel[] = [JlptLevel.N5, JlptLevel.N4];
 
 export default async function LearningLevelPage({ params }: PageProps) {
-  const resolvedParams = await params;
-  const { category, level } = normalizeParams(resolvedParams);
+  const { category, level } = normalizeParams(params);
 
   if (!validCategories.includes(category)) return notFound();
   if (!validLevels.includes(level)) return notFound();
