@@ -1,6 +1,7 @@
 import LevelPage from "@/components/layout/LevelPage";
 
-export default function MainPage({ params }: { params: { category: string } }) {
+export default async function MainPage(props: { params: Promise<{ category: string }> }) {
+  const params = await props.params;
   return (
     <div>
       <LevelPage params={params} /> 

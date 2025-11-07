@@ -12,16 +12,16 @@ import { ItemType } from "@/types/items";
 export const dynamic = "force-dynamic";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     category: string;
     level: string;
-  };
+  }>;
 }
 
 const validCategories: ItemType[] = ["vocabulary", "grammar", "kanji"];
 const validLevels: JlptLevel[] = [JlptLevel.N5, JlptLevel.N4];
 
-export default async function LearningLevelPage({ params }: PageProps) {
+export default async function LearningLevelPage({ params }: { params: { category: string, level: string } }) {
   const { category, level } = normalizeParams(params);
 
   if (!validCategories.includes(category)) return notFound();
@@ -35,6 +35,7 @@ export default async function LearningLevelPage({ params }: PageProps) {
   ]);
 
   return (
+    //nice
     <LearningLayout
       items={items}
       userProgress={userProgress}
@@ -44,6 +45,5 @@ export default async function LearningLevelPage({ params }: PageProps) {
       streakData={streakData}
       session={session}
     />
-    //nice
   );
 }
