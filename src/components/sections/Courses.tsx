@@ -3,6 +3,11 @@ import YinYangBackground from "../ui/Background";
 
 const courses = [
     {
+        title: 'Basics',
+        level: 'basics',
+        description: 'Learn the alphabets of the Japanese language'
+    },
+    {
         title: 'Vocabulary',
         level: 'vocabulary',
         description: 'Master essential words and expressions for JLPT N5 and N4'
@@ -35,7 +40,7 @@ export default function Courses() {
                 </div>
 
 
-``                <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+``                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
                     {courses.map((item) => (
                         <a
                             key={item.level}

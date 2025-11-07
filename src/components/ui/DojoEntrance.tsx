@@ -1,22 +1,5 @@
+"use client"
 import React, { useState, useEffect, useRef } from 'react';
-
-/**
- * DojoEntrance Component
- * 
- * A cinematic entrance animation featuring a spinning yin-yang symbol
- * that transitions from center screen to merge with your logo.
- * 
- * Usage:
- * 1. Import this component in your Next.js page
- * 2. Place it at the root level of your page component
- * 3. Ensure your Logo component is rendered on the page
- * 
- * The component will:
- * - Display a full-screen overlay on mount
- * - Show an animated yin-yang matching your logo design
- * - After 3s, transition the yin-yang to your logo position
- * - Remove itself from DOM after animation completes
- */
 
 type AnimationStage = 'intro' | 'transitioning' | 'complete';
 

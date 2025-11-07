@@ -1,12 +1,7 @@
-import { FloatingDock } from "@/components/ui/floating-dock";
 import Header from "@/components/ui/Header";
-import { GrammarIcon } from "@/public/GrammarIcon";
-import { HomeIcon } from "@/public/HomeIcon";
-import { KanjiIcon } from "@/public/KanjiIcon";
-import { VocabularyIcon } from "@/public/VocabIcon";
-import { IconBrandGithub } from "@tabler/icons-react";
-import { ArrowRight, JapaneseYen } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Footer from "../sections/Footer";
+import FloatingNavbar from "../ui/FloatingNav";
 
 interface Props {
     params: {
@@ -14,50 +9,6 @@ interface Props {
     }
 }
 
-const links = [
-  {
-    title: "Home",
-    icon: (
-      <HomeIcon className='h-full w-full text-neutral-500 dark:text-neutral-300' />
-    ),
-    href: "/",
-  },
-  {
-    title: "Basics",
-    icon: (
-      <JapaneseYen className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "/basics",
-  },
-  {
-    title: "Vocabulary",
-    icon: (
-      <VocabularyIcon className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "/vocabulary",
-  },
-  {
-    title: "Grammar",
-    icon: (
-      <GrammarIcon className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "/grammar",
-  },
-  {
-    title: "Kanji",
-    icon: (
-      <KanjiIcon className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "/kanji",
-  },
-  {
-    title: "GitHub",
-    icon: (
-      <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-    ),
-    href: "https://github.com/Sigmabond01/jlptdojo",
-  },
-];
 
 const levelsData = {
     vocabulary: [
@@ -132,9 +83,7 @@ export default async function LevelPage({ params }: Props) {
           </div>
         )}
       </div>
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
-        <FloatingDock items={links} />
-      </div>
+      <FloatingNavbar />
       <Footer />
     </div>
   );

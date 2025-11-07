@@ -1,18 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Coffee, JapaneseYen } from "lucide-react";
-import { IconBrandGithub } from "@tabler/icons-react";
-import { HomeIcon } from "@/public/HomeIcon";
-import { VocabularyIcon } from "@/public/VocabIcon";
-import { GrammarIcon } from "@/public/GrammarIcon";
-import { KanjiIcon } from "@/public/KanjiIcon";
-import { FloatingDock } from "@/components/ui/floating-dock";
+import { ArrowRight, Coffee } from "lucide-react";
 import Header from "@/components/ui/Header";
 import DailyStreakCard from "@/components/ui/DailyStreakCard";
 import ItemWrapper from "../Items/ItemWrapper";
 import { JlptLevel } from "@/generated/prisma";
 import { ItemType, Items } from "@/types/items";
+import { Session } from "next-auth";
+import FloatingNavbar from "../ui/FloatingNav";
 
 const STROKE_CIRCUMFERENCE = 2 * Math.PI * 56;
 
@@ -23,41 +19,8 @@ interface LearningLayoutProps {
   category: ItemType;
   level: JlptLevel;
   streakData: Record<string, number>;
-  session: any;
+  session: Session | null;
 }
-
-const links = [
-  {
-    title: "Home",
-    icon: <HomeIcon className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: "/",
-  },
-  {
-    title: "Basics",
-    icon: <JapaneseYen className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: "/basics",
-  },
-  {
-    title: "Vocabulary",
-    icon: <VocabularyIcon className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: "/vocabulary",
-  },
-  {
-    title: "Grammar",
-    icon: <GrammarIcon className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: "/grammar",
-  },
-  {
-    title: "Kanji",
-    icon: <KanjiIcon className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: "/kanji",
-  },
-  {
-    title: "GitHub",
-    icon: <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-    href: "https://github.com/Sigmabond01/jlptdojo",
-  },
-];
 
 export function LearningLayout({
   items,
@@ -139,7 +102,7 @@ export function LearningLayout({
                 <DailyStreakCard streakData={streakData} />
 
                 <div className="rounded-2xl overflow-hidden bg-neutral-950">
-                <iframe data-testid="embed-iframe" className="" src="https://open.spotify.com/embed/playlist/5fAukCQ7idJu2qOG4ZsOQ5?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowFullScreen={true} allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <iframe data-testid="embed-iframe" className="" src="https://open.spotify.com/embed/playlist/3QB6iQu9KKxdD8Bo7jDs8A?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowFullScreen={true} allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
                 
                 <CTASection />
@@ -149,9 +112,7 @@ export function LearningLayout({
         </div>
       </div>
 
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
-        <FloatingDock items={links} />
-      </div>
+      <FloatingNavbar />
     </div>
   );
 }
@@ -160,7 +121,15 @@ function capitalize(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
-function ProgressCard({ totalItems, completedItems, remainingItems, progressPercent, progressStrokeOffset }: any) {
+interface ProgressCardProps {
+  totalItems: number;
+  completedItems: number;
+  remainingItems: number;
+  progressPercent: number;
+  progressStrokeOffset: number;
+}
+
+function ProgressCard({ totalItems, completedItems, remainingItems, progressPercent, progressStrokeOffset }: ProgressCardProps) {
   return (
     <div className="p-6 backdrop-blur-xl bg-gray-200 dark:bg-neutral-950 border-2 border-black/10 dark:border-white/10 rounded-2xl relative">
       <h3 className="text-sm uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-4 text-center">

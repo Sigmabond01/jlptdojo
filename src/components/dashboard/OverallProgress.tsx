@@ -1,4 +1,4 @@
-import { LevelProgress } from "../getProgress";
+import { LevelProgress } from "@/lib/getProgress";
 
 interface OverallProgress {
     level: LevelProgress;

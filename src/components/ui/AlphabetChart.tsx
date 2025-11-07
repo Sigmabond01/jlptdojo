@@ -100,7 +100,7 @@ const AlphabetChart = () => {
           </button>
         </div>
 
-        <div className="rounded-2xl shadow-xl p-8 mb-6">
+        <div className="p-8 mb-6">
           <h2 className="text-2xl font-bold text-white/80 text-center mb-6">Basic Characters (清音)</h2>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
@@ -137,7 +137,7 @@ const AlphabetChart = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl shadow-xl p-8">
+        <div className="p-8">
           <h2 className="text-2xl font-bold text-white/80 text-center mb-6">Dakuten & Handakuten (濁音・半濁音)</h2>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">

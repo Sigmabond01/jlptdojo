@@ -1,21 +1,20 @@
 "use client"
 
 import { ItemProps } from "@/types/items"
-import { NotebookText, StickyNote } from "lucide-react" // Import icons
+import { NotebookText, StickyNote } from "lucide-react"
 
 export default function ItemPage({
   type,
   items,
   progress,
-  notes, // Get notes prop
+  notes,
   onProgressUpdate,
   onAnkiAdd,
-  onOpenNoteModal // Get modal handler
+  onOpenNoteModal
 }: ItemProps) {
   return (
     <div className="space-y-4">
       {items.map((item) => {
-        // Check if a note exists for this item
         const hasNote = notes.has(item.id) && notes.get(item.id) !== '';
 
         return (
@@ -69,7 +68,6 @@ export default function ItemPage({
                     </span>
                     {item.meaning}
                   </p>
-                  {/* Conditionally render example for vocab */}
                   {item.example && (
                     <p className="text-lg text-black dark:text-white/80">
                       <span className="text-sm font-semibold text-gray-600">
@@ -119,7 +117,6 @@ export default function ItemPage({
                 </div>
               )}
 
-              {/* Button Group */}
               <div className="flex items-center gap-2 mt-3">
                 <button
                   onClick={() => onAnkiAdd(item)}
