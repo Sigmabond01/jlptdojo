@@ -81,9 +81,9 @@ export default function LoginPage() {
 
         {/* Divider */}
         <div className="flex items-center my-6">
-          <div className="flex-grow border-t border-black/20 dark:border-white/20"></div>
+          <div className="grow border-t border-black/20 dark:border-white/20"></div>
           <span className="mx-4 text-xs font-bold text-gray-500 dark:text-gray-400">OR</span>
-          <div className="flex-grow border-t border-black/20 dark:border-white/20"></div>
+          <div className="grow border-t border-black/20 dark:border-white/20"></div>
         </div>
 
         {/* Google Sign-In Button */}

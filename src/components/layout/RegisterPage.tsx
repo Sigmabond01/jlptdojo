@@ -34,7 +34,7 @@ export default function RegisterPage() {
 
   return (
     <div className="relative flex items-center justify-center min-h-screen overflow-hidden bg-gray-400 dark:bg-black">
-      <div className="absolute inset-0 opacity-40 dark:opacity-20">
+      <div className="absolute inset-0 opacity-40 dark:opacity-5">
         <div className="absolute inset-0 text-black dark:text-white" style={{
           backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 50px, currentColor 50px, currentColor 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, currentColor 50px, currentColor 51px)`
         }} />
@@ -104,9 +104,9 @@ export default function RegisterPage() {
 
         {/* Divider */}
         <div className="flex items-center my-6">
-          <div className="flex-grow border-t border-black/20 dark:border-white/20"></div>
+          <div className="grow border-t border-black/20 dark:border-white/20"></div>
           <span className="mx-4 text-xs font-bold text-gray-500 dark:text-gray-400">OR</span>
-          <div className="flex-grow border-t border-black/20 dark:border-white/20"></div>
+          <div className="grow border-t border-black/20 dark:border-white/20"></div>
         </div>
         
         {/* Google Sign-In Button */}
