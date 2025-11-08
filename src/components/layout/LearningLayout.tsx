@@ -186,7 +186,7 @@ function CTASection() {
       <div className="p-4 backdrop-blur-xl bg-gray-200 dark:bg-black/80 text-center border-2 border-black/10 dark:border-white/10 rounded-2xl space-y-3">
         <h1 className="text-gray-600 dark:text-white">Star On Github!</h1>
         <a
-          href="https://github.com/jlpt-dojo"
+          href="https://github.com/jlptdojo"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-400 dark:text-gray-600 text-3xl transition-all duration-300 dark:hover:text-white"
