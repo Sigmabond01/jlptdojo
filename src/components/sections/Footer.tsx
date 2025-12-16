@@ -5,13 +5,13 @@ import Logo from "../ui/Logo";
 export default function Footer() {
   return (
     <footer className="border-t dark:bg-neutral-950 bg-gray-400 border-white/10 backdrop-blur-lg text-sm">
-      <div className="max-w-7xl mx-auto px-6 py-22 grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="max-w-7xl mx-auto px-6 py-12 md:py-22 grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="md:col-span-1">
-            <div className="pr-12">
-          <Logo />
+          <div className="pr-12">
+            <Logo />
           </div>
           <p className="mt-2 text-white/50 text-sm leading-relaxed">
-          JLPTDojo is your Japanese fluency dojo, combining structured lessons, interactive exercises, and real-time progress tracking to sharpen your language skills and build lasting mastery.
+            JLPTDojo is your Japanese fluency dojo, combining structured lessons, interactive exercises, and real-time progress tracking to sharpen your language skills and build lasting mastery.
           </p>
         </div>
 
@@ -93,8 +93,8 @@ export default function Footer() {
         </div>
 
         <div>
-          <h3 className="text-lg text-white mb-4 ml-28">Connect</h3>
-          <div className="flex space-x-4 mb-6 pl-18">
+          <h3 className="text-lg text-white mb-4 md:ml-28">Connect</h3>
+          <div className="flex space-x-4 mb-6 md:pl-18">
             <a
               href="https://x.com/Sigmabond01"
               target="_blank"

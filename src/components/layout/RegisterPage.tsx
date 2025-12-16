@@ -18,17 +18,17 @@ export default function RegisterPage() {
     setError("");
 
     const response = await fetch("/api/auth/register", {
-        method: 'POST',
-        headers: {"Content-Type": 'application/json'},
-        body: JSON.stringify({ name, email, password }),
+      method: 'POST',
+      headers: { "Content-Type": 'application/json' },
+      body: JSON.stringify({ name, email, password }),
     });
 
     const data = await response.json();
 
-    if(response.ok) {
-        router.push('/login?registered=true');
+    if (response.ok) {
+      router.push('/login?registered=true');
     } else {
-        setError(data.error || "Something went wrong!");
+      setError(data.error || "Something went wrong!");
     }
   };
 
@@ -48,7 +48,7 @@ export default function RegisterPage() {
         <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-black/40 dark:border-white/40" />
         <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-black/40 dark:border-white/40" />
 
-        <h1 className="text-center text-5xl md:text-6xl font-bold tracking-tight text-black dark:text-white">
+        <h1 className="text-center text-4xl md:text-5xl md:text-6xl font-bold tracking-tight text-black dark:text-white">
           Register
         </h1>
         <p className="text-center text-gray-600 dark:text-gray-300 mt-6 mb-8 text-sm uppercase tracking-widest">
@@ -108,7 +108,7 @@ export default function RegisterPage() {
           <span className="mx-4 text-xs font-bold text-gray-500 dark:text-gray-400">OR</span>
           <div className="grow border-t border-black/20 dark:border-white/20"></div>
         </div>
-        
+
         {/* Google Sign-In Button */}
         <div className="flex justify-center">
           <button

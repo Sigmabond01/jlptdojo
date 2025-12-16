@@ -7,7 +7,7 @@ const Pattern = () => {
   return (
     // The core positioning fix
     <div className="absolute inset-0 z-0 overflow-hidden">
-      
+
       {/* RESTORED: Your original classes for grid layout and text styling */}
       <div className="grid grid-cols-[repeat(auto-fill,minmax(40px,1fr))] auto-rows-[40px] text-[20px] font-mono">
         {chars.map((char, i) => (

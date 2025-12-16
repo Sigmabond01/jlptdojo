@@ -13,20 +13,20 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async(e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     const result = await signIn('credentials', {
-        redirect: false,
-        email,
-        password,
+      redirect: false,
+      email,
+      password,
     });
 
-    if(result?.ok) {
-        router.push('/dashboard');
+    if (result?.ok) {
+      router.push('/dashboard');
     } else {
-        setError('Invalid email or password. Please try again');
+      setError('Invalid email or password. Please try again');
     }
   };
 
@@ -45,7 +45,7 @@ export default function LoginPage() {
         <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-black/40 dark:border-white/40" />
         <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-black/40 dark:border-white/40" />
 
-        <h1 className="text-center text-5xl md:text-6xl font-bold tracking-tight text-black dark:text-white">Login</h1>
+        <h1 className="text-center text-4xl md:text-5xl md:text-6xl font-bold tracking-tight text-black dark:text-white">Login</h1>
         <p className="text-center text-gray-600 dark:text-gray-300 mt-6 mb-8 text-sm uppercase tracking-widest">
           Welcome Back.
         </p>
@@ -53,19 +53,19 @@ export default function LoginPage() {
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div>
             <input type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Email"
               className="w-full px-4 py-3 rounded-lg border border-black/20 dark:border-white/20 bg-transparent text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/40 dark:focus:ring-white/40" />
           </div>
 
           <div>
             <input type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Password"
               className="w-full px-4 py-3 rounded-lg border border-black/20 dark:border-white/20 bg-transparent text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black/40 dark:focus:ring-white/40" />
           </div>
 

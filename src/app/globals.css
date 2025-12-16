@@ -120,6 +120,7 @@ html {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -127,23 +128,30 @@ html {
 
 /* Modern black scrollbar */
 ::-webkit-scrollbar {
-  width: 6px; /* width of vertical scrollbar */
-  height: 10px; /* height of horizontal scrollbar */
+  width: 6px;
+  /* width of vertical scrollbar */
+  height: 10px;
+  /* height of horizontal scrollbar */
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent; /* track background */
+  background: transparent;
+  /* track background */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #535353; /* dark thumb */
-  border-radius: 9999px; /* round corners */
-  border: 2px solid transparent; /* space around thumb */
+  background-color: #535353;
+  /* dark thumb */
+  border-radius: 9999px;
+  /* round corners */
+  border: 2px solid transparent;
+  /* space around thumb */
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #333; /* slightly lighter on hover */
+  background-color: #333;
+  /* slightly lighter on hover */
 }
 
 ::-webkit-scrollbar-corner {
@@ -151,18 +159,30 @@ html {
 }
 
 @keyframes indeterminate {
-  0% { left: -50%; }
-  100% { left: 100%; }
+  0% {
+    left: -50%;
+  }
+
+  100% {
+    left: 100%;
+  }
 }
+
 .animate-indeterminate {
   animation: indeterminate 1.5s ease-in-out infinite;
 }
 
 /* For the GuideAlert timer bar */
 @keyframes shrink-width {
-  from { width: 100%; }
-  to { width: 0%; }
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0%;
+  }
 }
+
 .animate-shrink-width {
   animation: shrink-width linear forwards;
 }
